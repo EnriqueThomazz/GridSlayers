@@ -3541,6 +3541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 2793784643959920621, guid: 34e593560b653a448943030c643ed419, type: 3}
   enemySpawner: {fileID: 271236963}
+  enemyText: {fileID: 4213520238473833102, guid: b51b7d93099534f44a12c93c114ad429, type: 3}
 --- !u!212 &1070733450
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5534,6 +5535,7 @@ MonoBehaviour:
   hp: 20
   maxHp: 20
   isPlaying: 0
+  turnEnded: 0
 --- !u!4 &3274598345462105808
 Transform:
   m_ObjectHideFlags: 0

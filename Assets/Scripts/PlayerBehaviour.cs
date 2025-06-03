@@ -12,7 +12,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int hp = 20;
     public int maxHp = 20;
 
-    public bool isPlaying = false;
+    public bool isPlaying = false; // Indica se é o turno do player (Setado por FaseControl)
+    public bool turnEnded = false; // Indica se o turno do player acabou
 
     Vector3 SetZ(Vector3 vec, float z)
     {
@@ -80,6 +81,9 @@ public class PlayerBehaviour : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.S))
         {
             move(0, 1);
+        } else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            turnEnded = true; // Finaliza o turno
         }
     }
 }

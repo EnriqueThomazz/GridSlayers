@@ -1,13 +1,17 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public bool isPlaying = false;
+    public bool isPlaying = false; // Indica se é o turno do inimigo (setado por FaseControl)
+    public bool turnEnded = false; // Indica se o turno acabou
+
+    bool turnInProgress = false; // Define se o inimigo está "jogando" o turno (util na corrotina)
 
     private GameObject grid;
     private GameObject player;
-    private int hp;
-    private int dmg;
+    public int hp;
+    public int dmg;
     private string atkType;
     public string spriteName;
 
@@ -22,42 +26,50 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPlaying) // Verificar se é o seu turno
+        if (isPlaying && !turnInProgress && !turnEnded)
         {
-            int playerPos = 0;
-            int myPos = 0;
-
-            // Calcula a minha posicao e a posicao do player
-            for (int i = 0; i < grid.transform.childCount; i++)
-            {
-                Transform tile = grid.transform.GetChild(i);
-
-                if (tile.GetComponent<TileProperties>().onTop == gameObject)
-                {
-                    myPos = i;
-                }
-
-                if (tile.GetComponent<TileProperties>().onTop == player)
-                {
-                    playerPos = i;
-                }
-            }
-
-            // Verifica se esta no alcance do player (baseado em seu tipo de ataque)
-            if (isPlayerReachable(myPos, playerPos))
-            {
-                // Se estiver, causa dano no player
-                player.GetComponent<PlayerBehaviour>().takeDmg(dmg);
-            }
-            else
-            {
-                // Se não estiver, se movimenta de forma a se aproximar do player (1 tile por vez)
-                moveTowardsPlayer(myPos, playerPos);
-            }
-
-            // Finaliza seu turno
-            isPlaying = false;
+            StartCoroutine(ExecutarTurno());
         }
+    }
+
+    IEnumerator ExecutarTurno()
+    {
+        turnInProgress = true;
+
+        int playerPos = 0;
+        int myPos = 0;
+
+        // Calcula a minha posicao e a posicao do player
+        for (int i = 0; i < grid.transform.childCount; i++)
+        {
+            Transform tile = grid.transform.GetChild(i);
+
+            if (tile.GetComponent<TileProperties>().onTop == gameObject)
+            {
+                myPos = i;
+            }
+
+            if (tile.GetComponent<TileProperties>().onTop == player)
+            {
+                playerPos = i;
+            }
+        }
+
+        // Verifica se está no alcance do player
+        if (isPlayerReachable(myPos, playerPos))
+        {
+            player.GetComponent<PlayerBehaviour>().takeDmg(dmg);
+        }
+        else // Se não está, se move na direção do player
+        {
+            moveTowardsPlayer(myPos, playerPos);
+        }
+
+        // Espera 1 segundo antes de encerrar o turno
+        yield return new WaitForSeconds(1f);
+
+        turnEnded = true;
+        turnInProgress = false;
     }
 
     private void moveTowardsPlayer(int myPos, int playerPos)

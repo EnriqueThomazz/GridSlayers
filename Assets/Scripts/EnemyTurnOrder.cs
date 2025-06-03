@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
@@ -5,6 +6,8 @@ public class EnemyTurnOrder : MonoBehaviour
 {
     public GameObject enemyStats;
     public GameObject enemySpawner;
+
+    public GameObject enemyText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,9 +21,16 @@ public class EnemyTurnOrder : MonoBehaviour
             SpriteRenderer sr = GetComponent<SpriteRenderer>(); // Pra pegar a altura do retangulo
             Vector3 pos = new Vector3(transform.position.x - (sr.bounds.size.x / 2f) + 0.6f, transform.position.y + (sr.bounds.size.y / 2f) + yPadding * index - 0.7f, transform.position.z - 1);
             index++;
+
             // Instancia o enemyStats
             GameObject stats = Instantiate(enemyStats, pos, Quaternion.identity, transform);
 
+            // Instancia o texto do inimigo
+            GameObject text = Instantiate(enemyText, new Vector3(-11.5f, -1.7f - 1.2f * index, -2), Quaternion.identity, transform);
+            text.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+
+            // Passando o inimigo pro elemento visual
+            text.transform.GetComponent<EnemyTextUII>().enemy = enemy.gameObject;
 
 
             // Carrega a imagem certa
