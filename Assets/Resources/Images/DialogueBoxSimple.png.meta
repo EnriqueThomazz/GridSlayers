@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b537decdb03759c43b5f3428900383ca
+guid: 04081949f43517349b23c6647a951c9f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4659986204518466310
-    second: shaman_pf_0
+      213: -5256508804588260846
+    second: DialogueBoxSimple_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 38
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shaman_pf_0
+      name: DialogueBoxSimple_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
-        height: 38
+        width: 316
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: afcb4759c37645fb0800000000000000
-      internalID: -4659986204518466310
+      spriteID: 212bdc7a7112d07b0800000000000000
+      internalID: -5256508804588260846
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      shaman_pf_0: -4659986204518466310
+      DialogueBoxSimple_0: -5256508804588260846
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

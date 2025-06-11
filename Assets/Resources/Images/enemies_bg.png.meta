@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b537decdb03759c43b5f3428900383ca
+guid: 9db3634a499bf634fb64de81fcf81f7f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4659986204518466310
-    second: shaman_pf_0
+      213: -3903091557818063922
+    second: enemies_bg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 38
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shaman_pf_0
+      name: enemies_bg_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
-        height: 38
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: afcb4759c37645fb0800000000000000
-      internalID: -4659986204518466310
+      spriteID: ec3ad6a58ee65d9c0800000000000000
+      internalID: -3903091557818063922
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      shaman_pf_0: -4659986204518466310
+      enemies_bg_0: -3903091557818063922
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
