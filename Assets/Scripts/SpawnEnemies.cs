@@ -37,6 +37,7 @@ public class SpawnEnemies : MonoBehaviour
                 grid.transform.GetChild(int.Parse(e[0])).gameObject.GetComponent<TileProperties>().setTop(newEnemy);
 
                 // Definindo os atributos do inimigo
+                //newEnemy.GetComponent<EnemyBehaviour>().setAttr(int.Parse(e[2]), int.Parse(e[3]), e[4], e[1], grid, int.Parse(e[0]), player);
                 newEnemy.GetComponent<EnemyBehaviour>().setAttr(int.Parse(e[2]), int.Parse(e[3]), e[4], e[1], grid, player);
             }
         }

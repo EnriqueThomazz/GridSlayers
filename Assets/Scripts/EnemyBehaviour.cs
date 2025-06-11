@@ -12,7 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject player;
     public int hp;
     public int dmg;
-    private string atkType;
+    public string atkType;
     public string spriteName;
 
     public SpriteRenderer spriteRenderer;
@@ -20,7 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,6 +30,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             StartCoroutine(ExecutarTurno());
         }
+
+        checkDeath(); // Checa se o objeto tem de ser destruido e o destroi
     }
 
     IEnumerator ExecutarTurno()
@@ -72,22 +74,24 @@ public class EnemyBehaviour : MonoBehaviour
         turnInProgress = false;
     }
 
-    private void moveTowardsPlayer(int myPos, int playerPos)
+    public void moveTowardsPlayer(int myPos, int playerPos)
     {
         // Lógica: se estiver na mesma linha que o player, se move 1 tile na horizontal
         // Se estiver na mesma coluna, se move 1 tile na vertical
         int newPos = 0;
-        if (myPos/5 == playerPos / 5) // Mesma linha
+        if (myPos / 5 == playerPos / 5) // Mesma linha
         {
             if (playerPos > myPos)
             {
                 newPos = myPos + 1;
-            }else if (playerPos < myPos)
+            }
+            else if (playerPos < myPos)
             {
                 newPos = myPos - 1;
             }
 
-        } else if (myPos%5 == playerPos % 5) // Mesma coluna
+        }
+        else if (myPos % 5 == playerPos % 5) // Mesma coluna
         {
             if (playerPos > myPos)
             {
@@ -98,7 +102,8 @@ public class EnemyBehaviour : MonoBehaviour
                 newPos = myPos - 5;
             }
 
-        } else // Se não estiver nem na mesma coluna nem na mesma linha, move 1 tile aleatoriamente na vertical ou horizontal
+        }
+        else // Se não estiver nem na mesma coluna nem na mesma linha, move 1 tile aleatoriamente na vertical ou horizontal
         {
             string dir = UnityEngine.Random.Range(0, 2) == 0 ? "hor" : "ver";
             if (dir == "hor")
@@ -106,12 +111,12 @@ public class EnemyBehaviour : MonoBehaviour
                 // Problema que poderia acontecer: player esta na posição seguinte, que é em outra linha
                 // então me movimento para chegar mais perto -> vou para o mesmo tile que o player.
                 // Logo, se eu verificar que vou para o mesmo tile que o player, em vez disso me movo na vertical.                
-                if (playerPos%5 > myPos%5)
+                if (playerPos % 5 > myPos % 5)
                 {
                     if (playerPos != myPos + 1) newPos = myPos + 1;
                     else dir = "ver";
                 }
-                else if (playerPos%5 < myPos%5)
+                else if (playerPos % 5 < myPos % 5)
                 {
                     if (playerPos != myPos - 1) newPos = myPos - 1;
                     else dir = "ver";
@@ -134,7 +139,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Tendo o newPos calculado, basta alterar os atributos onTop do tile correto
 
         // Antes de mover, verifica se não esta tentando ir para um tile em que ja existe outro inimigo
-        for (int i=0; i < transform.parent.childCount; i++) // Itera pelos irmãos
+        for (int i = 0; i < transform.parent.childCount; i++) // Itera pelos irmãos
         {
             Transform filho = transform.parent.GetChild(i);
 
@@ -156,6 +161,108 @@ public class EnemyBehaviour : MonoBehaviour
         }
         // Se passou pelo for acima sem retornar, significa que o caminho está livre.
         // Então, move o inimigo
+        if (newPos == playerPos) return; // Não se move para o tile do player
+        grid.transform.GetChild(myPos).gameObject.GetComponent<TileProperties>().setTop(null);
+        grid.transform.GetChild(newPos).gameObject.GetComponent<TileProperties>().setTop(gameObject);
+    }
+
+    public void moveAwayPlayer(int myPos, int playerPos)
+    {
+        // Lógica: se estiver na mesma linha que o player, se move 1 tile na horizontal
+        // Se estiver na mesma coluna, se move 1 tile na vertical
+        int newPos = 0;
+        if (myPos / 5 == playerPos / 5) // Mesma linha
+        {
+            if (playerPos > myPos)
+            {
+                newPos = myPos -1;
+                if (newPos / 5 != myPos / 5) // Significa que o movimento lateral fez ele subir pra outra linha
+                {
+                    newPos = myPos - 5; // Então anda verticalmente
+                }
+            }
+            else if (playerPos < myPos)
+            {
+                newPos = myPos + 1;
+                if (newPos / 5 != myPos / 5) // Significa que o movimento lateral fez ele cair pra outra linha
+                {
+                    newPos = myPos + 5; // Então anda verticalmente
+                }
+            }
+
+        }
+        else if (myPos % 5 == playerPos % 5) // Mesma coluna
+        {
+            if (playerPos > myPos)
+            {
+                newPos = myPos - 5;
+            }
+            else if (playerPos < myPos)
+            {
+                newPos = myPos + 5;
+            }
+
+        }
+        else // Se não estiver nem na mesma coluna nem na mesma linha, move 1 tile aleatoriamente na vertical ou horizontal
+        {
+            string dir = UnityEngine.Random.Range(0, 2) == 0 ? "hor" : "ver";
+            if (dir == "hor")
+            {
+                // Problema que poderia acontecer: player esta na posição seguinte, que é em outra linha
+                // então me movimento para chegar mais perto -> vou para o mesmo tile que o player.
+                // Logo, se eu verificar que vou para o mesmo tile que o player, em vez disso me movo na vertical.                
+                if (playerPos % 5 > myPos % 5)
+                {
+                    if (playerPos != myPos - 1) newPos = myPos - 1;
+                    else dir = "ver";
+                }
+                else if (playerPos % 5 < myPos % 5)
+                {
+                    if (playerPos != myPos + 1) newPos = myPos + 1;
+                    else dir = "ver";
+                }
+            }
+            if (dir == "ver")
+            {
+                if (playerPos > myPos)
+                {
+                    newPos = myPos - 5;
+                }
+                else if (playerPos < myPos)
+                {
+                    newPos = myPos + 5;
+                }
+            }
+        }
+
+
+        // Tendo o newPos calculado, basta alterar os atributos onTop do tile correto
+
+        // Antes de mover, verifica se não esta tentando ir para um tile em que ja existe outro inimigo
+        for (int i = 0; i < transform.parent.childCount; i++) // Itera pelos irmãos
+        {
+            Transform filho = transform.parent.GetChild(i);
+
+            if (filho != transform) // Verifica se não é ele mesmo
+            {
+                for (int j = 0; j < grid.transform.childCount; j++) // Itera pelos tiles pra pegar a posicao do irmao
+                {
+                    Transform tile = grid.transform.GetChild(j);
+
+                    if (tile.GetComponent<TileProperties>().onTop == filho.gameObject) // Se o objeto onTop for o irmao
+                    {
+                        if (j == newPos) // Se a posicao do irmao for igual a que eu estou tentando ir
+                        {
+                            return; // Então retorna sem mover
+                        }
+                    }
+                }
+            }
+        }
+        // Se passou pelo for acima sem retornar, significa que o caminho está livre.
+        // Então, move o inimigo
+        if (newPos == playerPos) return; // Não se move para o tile do player
+        if (!(24 >= newPos && newPos >= 0)) return; // Tentando mover pra fora do grid
         grid.transform.GetChild(myPos).gameObject.GetComponent<TileProperties>().setTop(null);
         grid.transform.GetChild(newPos).gameObject.GetComponent<TileProperties>().setTop(gameObject);
     }
@@ -214,5 +321,10 @@ public class EnemyBehaviour : MonoBehaviour
         spriteRenderer.sprite = sprite;
 
         transform.localScale = new Vector3(6f, 6f, 1f);
+    }
+
+    public void checkDeath()
+    {
+        if (hp <= 0) Destroy(gameObject);
     }
 }

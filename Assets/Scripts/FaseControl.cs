@@ -18,6 +18,7 @@ public class FaseControl : MonoBehaviour
 
         // Colocando player no centro do grid
         grid.transform.GetChild(grid.transform.childCount / 2).gameObject.GetComponent<TileProperties>().setTop(player);
+        player.GetComponent<PlayerBehaviour>().gridPosition = grid.transform.childCount / 2;
 
         // Player é o primeiro a jogar
         player.transform.GetComponent<PlayerBehaviour>().isPlaying = true;
@@ -77,6 +78,7 @@ public class FaseControl : MonoBehaviour
                             else // Significa que era o ultimo inimigo da lista
                             {
                                 // Então é a vez do player
+                                player.transform.GetComponent<PlayerBehaviour>().mana = 5;
                                 player.transform.GetComponent<PlayerBehaviour>().isPlaying = true;
                                 player.transform.GetComponent<PlayerBehaviour>().turnEnded = false;
                             }

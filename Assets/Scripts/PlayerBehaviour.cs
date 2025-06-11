@@ -6,11 +6,16 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public GameObject grid;
     private List<List<Transform>> listaTiles = new List<List<Transform>>();
+    public int gridPosition;
 
     private int gridSize;
 
     public int hp = 20;
     public int maxHp = 20;
+    public int buffDmg = 0; // Pra cartas que buffam o dano, reseta qdo termina o turno
+    public bool copyActive = false; // Pra carta de cópia
+
+    public int mana = 2;
 
     public bool isPlaying = false; // Indica se é o turno do player (Setado por FaseControl)
     public bool turnEnded = false; // Indica se o turno do player acabou
@@ -38,6 +43,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    // Mudar a lógica de movimentação (!!!)
     void move(int x_dir, int y_dir)
     {
         for (int i = 0; i < gridSize; i++)
@@ -48,6 +54,8 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     listaTiles[i][j].gameObject.GetComponent<TileProperties>().setTop(null);
                     listaTiles[i + y_dir][j + x_dir].gameObject.GetComponent<TileProperties>().setTop(this.gameObject);
+                    gridPosition = (i + y_dir) * 5 + j + x_dir;
+                    Debug.Log("Posição do player: " + gridPosition.ToString());
                 }
             }
         }
@@ -67,6 +75,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Eventos para debug apenas...
         if (Input.GetKeyDown(KeyCode.A))
         {
             move(-1, 0);
@@ -83,7 +92,19 @@ public class PlayerBehaviour : MonoBehaviour
             move(0, 1);
         } else if (Input.GetKeyDown(KeyCode.Space))
         {
+            buffDmg = 0;
+            copyActive = false;
             turnEnded = true; // Finaliza o turno
         }
+    }
+
+    public void endTurn()
+    {
+        // Reseta variáveis de cartas
+        buffDmg = 0;
+        copyActive = false;
+
+        // Finaliza o turno
+        turnEnded = true;
     }
 }

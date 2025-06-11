@@ -8,7 +8,7 @@ public class CardBehaviour : MonoBehaviour
     public List<string> cardContents;
 
     private TextMeshProUGUI costText;
-    private TextMeshProUGUI nameText;
+    public TextMeshProUGUI nameText;
     private TextMeshProUGUI effectText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
