@@ -17,6 +17,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -60,6 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Verifica se está no alcance do player
         if (isPlayerReachable(myPos, playerPos))
         {
+            audioManager.playSFX(audioManager.enemyDmg);
             player.GetComponent<PlayerBehaviour>().takeDmg(dmg);
         }
         else // Se não está, se move na direção do player

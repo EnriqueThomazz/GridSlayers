@@ -2412,6 +2412,8 @@ MonoBehaviour:
   trash: {fileID: 1514292817}
   player: {fileID: 7295812897870960818}
   grid: {fileID: 6614984499094275867}
+  enemies: {fileID: 271236963}
+  tileClicked: -1
 --- !u!1 &462999408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3752,6 +3754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardTemplate: {fileID: 5250140155890972755, guid: 0cc1795ffea3f2245a01e5f466c9d724, type: 3}
+  trash: {fileID: 0}
 --- !u!1 &1426161738
 GameObject:
   m_ObjectHideFlags: 0
@@ -3913,7 +3916,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1473418525}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3230050379845348149}
+        m_TargetAssemblyTypeName: PlayerBehaviour, Assembly-CSharp
+        m_MethodName: endTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1473418525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4150,6 +4165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1514292818}
+  - component: {fileID: 1514292819}
   m_Layer: 0
   m_Name: Trash
   m_TagString: Untagged
@@ -4166,12 +4182,24 @@ Transform:
   m_GameObject: {fileID: 1514292817}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 7.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1923629979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1514292819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514292817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a6f1b63f031d9488b3073dc6288d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1583857034
 GameObject:
   m_ObjectHideFlags: 0
@@ -5412,6 +5440,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &2949302238274780578
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5793,6 +5825,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &4440177883202778273
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5922,6 +5958,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &4650138482047397135
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6199,6 +6239,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &5380177692754993842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6277,6 +6321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &5453745547251018568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6408,6 +6456,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &5747874279436959753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6512,6 +6564,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &5823165469788451333
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6681,6 +6737,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &6091068281059897769
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6759,6 +6819,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &6126294364310787227
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6908,6 +6972,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &6733266379466354803
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7005,6 +7073,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &7033554922871297030
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7197,6 +7269,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &7444436727892234173
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7271,6 +7347,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &7445977680175268170
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7345,6 +7425,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &7458122098414962276
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7514,6 +7598,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &7785719811562796414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7683,6 +7771,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8143847890082793237
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7761,6 +7853,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8380581740662749513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7839,6 +7935,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8495291981981033425
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7913,6 +8013,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8524229673899465248
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7987,6 +8091,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8741286961281612580
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8061,6 +8169,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8755373244874411967
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8175,6 +8287,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8876194934997274336
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8249,6 +8365,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &8943182331971557337
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8323,6 +8443,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &9102619762854757369
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8401,6 +8525,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTop: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 2d380bef64b20604db637dca45040e3c, type: 3}
+  hoverSprite: {fileID: 21300000, guid: 0f727985329f5c045b4c5d2d49ea6973, type: 3}
+  selectedSprite: {fileID: 21300000, guid: e03d0af1ef1e0d9478da5224a84e715f, type: 3}
+  hand: {fileID: 400169902}
 --- !u!61 &9155230642232763504
 BoxCollider2D:
   m_ObjectHideFlags: 0

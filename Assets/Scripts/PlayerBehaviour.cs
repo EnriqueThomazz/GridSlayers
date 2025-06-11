@@ -20,11 +20,6 @@ public class PlayerBehaviour : MonoBehaviour
     public bool isPlaying = false; // Indica se é o turno do player (Setado por FaseControl)
     public bool turnEnded = false; // Indica se o turno do player acabou
 
-    Vector3 SetZ(Vector3 vec, float z)
-    {
-        vec.z = z;
-        return vec;
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

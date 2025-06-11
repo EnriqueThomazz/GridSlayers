@@ -16,7 +16,12 @@ public class UseCards : MonoBehaviour
     public GameObject enemies;
 
     public int tileClicked = -1;
-    public Sprite tileClickedSprite;
+
+    AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -99,7 +104,7 @@ public class UseCards : MonoBehaviour
         return false;
     }
 
-    private bool cardEffect(string cardName)
+    private bool cardEffect(string cardName, bool copying=false)
     {
         int playerPos = player.GetComponent<PlayerBehaviour>().gridPosition; // Posição do player no grid
 
@@ -169,8 +174,13 @@ public class UseCards : MonoBehaviour
                         if (grid.transform.GetChild(tileClicked).GetComponent<TileProperties>().onTop != null) // Se tem algo em cima do tile
                         {
                             // Verificando a mana
-                            if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna 
-                            player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                            if (!copying) // Só custa mana se não estiver copiando
+                            {
+                                if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna 
+                                player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                            }
+
+                            audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
 
                             // Pega o inimigo que está em cima, deveria verificar se é um inimigo (!!!)
                             EnemyBehaviour enemyB = grid.transform.GetChild(tileClicked).GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>();
@@ -199,9 +209,13 @@ public class UseCards : MonoBehaviour
                 // Tenta causar dano nos inimigos adjacentes na mesma linha
                 // Mesma linha = mesma divisão inteira por 5
 
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
+                if (!copying) // Só custa mana se não estiver copiando
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
 
-                player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                    player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                }
+
 
                 int before = ((playerPos - 1) / 5 == playerPos / 5) ? playerPos - 1 : -1;
                 int after = ((playerPos + 1) / 5 == playerPos / 5) ? playerPos + 1 : -1;
@@ -211,6 +225,7 @@ public class UseCards : MonoBehaviour
                     Transform tile = grid.transform.GetChild(before);
                     if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                     {
+                        audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                         tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 5 + player.GetComponent<PlayerBehaviour>().buffDmg; // Causa dano no inimigo (precisaria verificar se é de fato um inimigo !!!)
                     }
                 }
@@ -220,6 +235,7 @@ public class UseCards : MonoBehaviour
                     Transform tile = grid.transform.GetChild(after);
                     if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                     {
+                        audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                         tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 5 + player.GetComponent<PlayerBehaviour>().buffDmg; // Causa dano no inimigo (precisaria verificar se é de fato um inimigo !!!)
                     }
                 }
@@ -228,15 +244,27 @@ public class UseCards : MonoBehaviour
 
             // ok
             case "Fortalecimento":
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna false
 
-                player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna false
+
+                    player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                }
 
                 player.GetComponent<PlayerBehaviour>().buffDmg += 5;
                 break;
 
             // ok
             case "Meditação":
+
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna false
+
+                    player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                }
+
                 player.GetComponent<PlayerBehaviour>().hp += 5;
                 if (player.GetComponent<PlayerBehaviour>().hp > player.GetComponent<PlayerBehaviour>().maxHp) // Evitando curar mais do que o hp maximo
                 {
@@ -252,9 +280,12 @@ public class UseCards : MonoBehaviour
                 // Mesma coluna = mesmo resto de divisão por 5
                 // Mesma linha = mesma divisão inteira por 5
 
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
 
-                player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                    player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                }
 
                 int l_before = ((playerPos - 1) / 5 == playerPos / 5) ? playerPos - 1 : -1; // Antes na mesma linha
                 int l_after = ((playerPos + 1) / 5 == playerPos / 5) ? playerPos + 1 : -1; // Depois na mesma linha
@@ -268,6 +299,7 @@ public class UseCards : MonoBehaviour
                     Transform tile = grid.transform.GetChild(l_before);
                     if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                     {
+                        audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                         tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 10 + player.GetComponent<PlayerBehaviour>().buffDmg;
                     }
                 }
@@ -277,6 +309,7 @@ public class UseCards : MonoBehaviour
                     Transform tile = grid.transform.GetChild(l_after);
                     if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                     {
+                        audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                         tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 10 + player.GetComponent<PlayerBehaviour>().buffDmg;
                     }
                 }
@@ -286,6 +319,7 @@ public class UseCards : MonoBehaviour
                     Transform tile = grid.transform.GetChild(c_before);
                     if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                     {
+                        audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                         tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 10 + player.GetComponent<PlayerBehaviour>().buffDmg;
                     }
                 }
@@ -295,6 +329,7 @@ public class UseCards : MonoBehaviour
                     Transform tile = grid.transform.GetChild(c_after);
                     if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                     {
+                        audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                         tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 10 + player.GetComponent<PlayerBehaviour>().buffDmg;
                     }
                 }
@@ -310,9 +345,12 @@ public class UseCards : MonoBehaviour
 
                 // Basta chamar o moveTowardsPlayer do inimigo
 
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna false
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 1)) return false; // Se o player n tem mana o suficiente retorna false
 
-                player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                    player.GetComponent<PlayerBehaviour>().mana -= 1; // Gasta a mana
+                }
 
                 for (int i=0; i<enemies.transform.childCount; i++) // Passa por todos os inimigos
                 {
@@ -337,8 +375,11 @@ public class UseCards : MonoBehaviour
 
                 // Basta chamar o moveAwayPlayer do inimigo
 
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
-                player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
+                    player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                }
 
                 for (int i = 0; i < enemies.transform.childCount; i++) // Passa por todos os inimigos
                 {
@@ -388,8 +429,13 @@ public class UseCards : MonoBehaviour
                         if (grid.transform.GetChild(tileClicked).GetComponent<TileProperties>().onTop != null) // Se tem algo em cima do tile
                         {
                             // Verificando a mana
-                            if (!(player.GetComponent<PlayerBehaviour>().mana >= 3)) return false; // Se o player n tem mana o suficiente retorna 
-                            player.GetComponent<PlayerBehaviour>().mana -= 3; // Gasta a mana
+                            if (!copying)
+                            {
+                                if (!(player.GetComponent<PlayerBehaviour>().mana >= 3)) return false; // Se o player n tem mana o suficiente retorna 
+                                player.GetComponent<PlayerBehaviour>().mana -= 3; // Gasta a mana
+                            }
+
+                            audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
 
                             // Pega o inimigo que está em cima, deveria verificar se é um inimigo (!!!)
                             EnemyBehaviour enemyB = grid.transform.GetChild(tileClicked).GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>();
@@ -420,9 +466,12 @@ public class UseCards : MonoBehaviour
                 // Mesma coluna = mesmo resto de divisão por 5
                 // Passar por todos os tiles e ver se estão na mesma coluna do player
 
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
 
-                player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                    player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                }
 
                 for (int i=0; i<grid.transform.childCount; i++)
                 {
@@ -431,6 +480,7 @@ public class UseCards : MonoBehaviour
                         Transform tile = grid.transform.GetChild(i);
                         if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                         {
+                            audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                             // Causa dano
                             tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 3 + player.GetComponent<PlayerBehaviour>().buffDmg;
                         }
@@ -446,9 +496,12 @@ public class UseCards : MonoBehaviour
                 // Mesma linha = mesma divisão inteira por 5
                 // Calcular (player - 4), (player + 4)
 
-                if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
+                if (!copying)
+                {
+                    if (!(player.GetComponent<PlayerBehaviour>().mana >= 2)) return false; // Se o player n tem mana o suficiente retorna false
 
-                player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                    player.GetComponent<PlayerBehaviour>().mana -= 2; // Gasta a mana
+                }
 
                 for (int i = ((playerPos - 4 >= 0) ? playerPos - 4 : 0); i < ((playerPos + 4 <= 24) ? playerPos + 4 : 24); i++) // Passa por todas as posições
                 {
@@ -457,7 +510,7 @@ public class UseCards : MonoBehaviour
                         Transform tile = grid.transform.GetChild(i);
                         if (tile.GetComponent<TileProperties>().onTop) // Se tem algo no tile
                         {
-                            Debug.Log("Casuando dano...");
+                            audioManager.playSFX(audioManager.playerDmg); // Toca o som de dano
                             // Causa dano
                             tile.GetComponent<TileProperties>().onTop.GetComponent<EnemyBehaviour>().hp -= 3 + player.GetComponent<PlayerBehaviour>().buffDmg;
                         }
@@ -474,7 +527,7 @@ public class UseCards : MonoBehaviour
         if (player.GetComponent<PlayerBehaviour>().copyActive && cardName != "Cópia") // Se o player estava com cópia ativa
         {
             player.GetComponent<PlayerBehaviour>().copyActive = false; // Desativa a cópia
-            cardEffect(cardName); // Chama recursivamente o efeito da carta
+            cardEffect(cardName, copying=true); // Chama recursivamente o efeito da carta
         }
 
         return true;

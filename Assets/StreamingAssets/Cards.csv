@@ -1,13 +1,3 @@
 Nome,Efeito,Custo,QtdInicial
-Passos Rápidos,Mova 1 casa em qualquer direção.,0,4
-Soco,Cause 5 de dano a um inimigo adjacente.,1,4
-Chute Duplo,Cause 5 de dano aos inimigos adjacentes na mesma linha.,2,2
-Fortalecimento,Suas cartas de ataque causam +5 de dano durante esse turno.,1,4
-Meditação,Cure 5 PV.,1,2
-Raiva,Cause 10 de dano a todos os inimigos adjacentes. Perca 5 PV.,2,2
-Atrair,Mova todos os inimigos 1 casa na sua direção.,1,2
-Repelir,Mova todos os inimigos 1 casa para longe de você.,2,2
-Cópia,A proxima carta será utilizada duas vezes.,2,2
-Golpe Fatal,Cause 10 de dano a um inimigo adjacente.,3,2
-Soco Abrangente,Cause 3 de dano a todos os inimigos na mesma coluna que você.,2,2
-Chute Abrangente,Cause 3 de dano a todos os inimigos na mesma linha que você.,2,2
+Cópia,A proxima carta será utilizada duas vezes.,2,10
+Soco Abrangente,Cause 3 de dano a todos os inimigos na mesma coluna que você.,2,10
