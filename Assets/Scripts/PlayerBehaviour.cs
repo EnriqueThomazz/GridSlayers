@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class PlayerBehaviour : MonoBehaviour
     public bool isPlaying = false; // Indica se é o turno do player (Setado por FaseControl)
     public bool turnEnded = false; // Indica se o turno do player acabou
 
+    AudioManager audioManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
         gridSize = (int) Mathf.Sqrt(grid.transform.childCount);
 
         int c = 0;
@@ -64,7 +69,16 @@ public class PlayerBehaviour : MonoBehaviour
         {
             hp = 0;
             Debug.Log("Player morto!");
+            audioManager.playSFX(audioManager.gameOver);
+            StartCoroutine(gameOver());
         }
+    }
+
+    System.Collections.IEnumerator gameOver()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("GameOver");
     }
 
     // Update is called once per frame
@@ -90,6 +104,19 @@ public class PlayerBehaviour : MonoBehaviour
             buffDmg = 0;
             copyActive = false;
             turnEnded = true; // Finaliza o turno
+        } else if (Input.GetKeyDown(KeyCode.K)) // Mata todos os inimigos na tela
+        {
+            for (int i=0; i<grid.transform.childCount; i++)
+            {
+                Transform tile = grid.transform.GetChild(i);
+                if (tile.GetComponent<TileProperties>().onTop)
+                {
+                    if (tile.GetComponent<TileProperties>().onTop != transform.gameObject)
+                    {
+                        tile.GetComponent<TileProperties>().onTop.transform.GetComponent<EnemyBehaviour>().hp = 0;
+                    }
+                }
+            }
         }
     }
 

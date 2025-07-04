@@ -1,5 +1,0 @@
-tile,sprite,vida,dano,tipoAtaque
-0,demon_red,10,2,cc
-23,skeleton,6,2,la
-21,monkey,4,4,cc
-14,pig,3,3,cc

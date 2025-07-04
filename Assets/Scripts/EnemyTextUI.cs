@@ -34,7 +34,7 @@ public class EnemyTextUII : MonoBehaviour
             {
                 weaponImg.transform.GetComponent<SpriteRenderer>().sprite = weapon_cc;
             }
-            else
+            else if (enemy.transform.GetComponent<EnemyBehaviour>().atkType == "la")
             {
                 weaponImg.transform.GetComponent<SpriteRenderer>().sprite = weapon_la;
             }

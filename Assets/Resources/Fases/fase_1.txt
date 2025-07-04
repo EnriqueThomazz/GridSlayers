@@ -1,0 +1,10 @@
+tile,sprite,vida,dano,tipoAtaque,type
+0,demon_red,20,4,cc,character
+23,skeleton,15,3,la,character
+@
+21,monkey,20,4,cc,character
+14,pig,12,6,cc,character
+@
+2,red_boss,40,8,cc,boss
+@
+

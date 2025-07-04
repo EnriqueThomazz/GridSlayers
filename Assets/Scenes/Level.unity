@@ -2304,6 +2304,8 @@ MonoBehaviour:
   grid: {fileID: 6614984499094275867}
   enemyPrefab: {fileID: 2070797829169972484, guid: 279b4ecc41809dd428e4bd572e2e4ba8, type: 3}
   player: {fileID: 7295812897870960818}
+  enemyTurnOrder: {fileID: 1070733447}
+  tile_deactivated: {fileID: 4481776450339056869, guid: 9137ac4c2975b3e4fb5986339071b982, type: 3}
 --- !u!1 &274500789
 GameObject:
   m_ObjectHideFlags: 0
@@ -3722,7 +3724,7 @@ GameObject:
   - component: {fileID: 1289386445}
   m_Layer: 0
   m_Name: background
-  m_TagString: Untagged
+  m_TagString: undeletable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

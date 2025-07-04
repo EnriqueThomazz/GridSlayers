@@ -11,6 +11,21 @@ public class EnemyTurnOrder : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
+    }
+
+    public void generateTurnsUI()
+    {
+        // Limpa tudo que tem antes de continuar
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Transform child = transform.GetChild(i);
+            if (child.tag != "undeletable") // Evita deletar o background
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
         float yPadding = -1.2f;
         int index = 0;
         // Iterar pela lista de inimigos (filhos de EnemySpawner)

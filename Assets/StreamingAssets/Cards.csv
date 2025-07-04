@@ -1,9 +1,9 @@
 Nome,Efeito,Custo,QtdInicial
-Passos Rápidos,Mova 1 casa em qualquer direção.,0,4
-Soco,Cause 5 de dano a um inimigo adjacente.,1,4
+Passos Rápidos,Mova 1 casa em qualquer direção.,0,8
+Soco,Cause 5 de dano a um inimigo adjacente.,1,8
 Chute Duplo,Cause 5 de dano aos inimigos adjacentes na mesma linha.,2,2
 Fortalecimento,Suas cartas de ataque causam +5 de dano durante esse turno.,1,4
-Meditação,Cure 5 PV.,1,2
+Meditação,Cure 5 PV.,1,4
 Raiva,Cause 10 de dano a todos os inimigos adjacentes. Perca 5 PV.,2,2
 Atrair,Mova todos os inimigos 1 casa na sua direção.,1,2
 Repelir,Mova todos os inimigos 1 casa para longe de você.,2,2
