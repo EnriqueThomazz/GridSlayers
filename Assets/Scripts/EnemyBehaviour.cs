@@ -67,6 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Verifica se está no alcance do player
         if (isPlayerReachable(myPos, playerPos))
         {
+            StartCoroutine(attackAnimation());
             audioManager.playSFX(audioManager.enemyDmg);
             player.GetComponent<PlayerBehaviour>().takeDmg(dmg);
         }
@@ -334,5 +335,12 @@ public class EnemyBehaviour : MonoBehaviour
     public void checkDeath()
     {
         if (hp <= 0) Destroy(gameObject);
+    }
+
+    IEnumerator attackAnimation()
+    {
+        transform.Rotate(0, 45, 0); // Rotaciona 5 graus p direita
+        yield return new WaitForSeconds(0.5f);
+        transform.Rotate(0, -45, 0); // Volta ao normal
     }
 }

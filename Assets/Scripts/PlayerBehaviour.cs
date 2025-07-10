@@ -104,19 +104,6 @@ public class PlayerBehaviour : MonoBehaviour
             buffDmg = 0;
             copyActive = false;
             turnEnded = true; // Finaliza o turno
-        } else if (Input.GetKeyDown(KeyCode.K)) // Mata todos os inimigos na tela
-        {
-            for (int i=0; i<grid.transform.childCount; i++)
-            {
-                Transform tile = grid.transform.GetChild(i);
-                if (tile.GetComponent<TileProperties>().onTop)
-                {
-                    if (tile.GetComponent<TileProperties>().onTop != transform.gameObject)
-                    {
-                        tile.GetComponent<TileProperties>().onTop.transform.GetComponent<EnemyBehaviour>().hp = 0;
-                    }
-                }
-            }
         }
     }
 

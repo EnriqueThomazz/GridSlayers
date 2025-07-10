@@ -4,6 +4,10 @@ tile,sprite,vida,dano,tipoAtaque,type
 @
 21,monkey,20,4,cc,character
 14,pig,12,6,cc,character
+2,shaman,10,6,la,character
+@
+4,flame,10,6,la,character
+2,demon_green,20,4,cc,character
 @
 2,red_boss,40,8,cc,boss
 @

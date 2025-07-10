@@ -60,7 +60,15 @@ public class SpawnEnemies : MonoBehaviour
                 // Atualiza o turno dos inimigos na UI
                 enemyTurnOrder.transform.GetComponent<EnemyTurnOrder>().generateTurnsUI();
             }
-        }        
+        }
+
+        if (Input.GetKeyDown(KeyCode.K)) // Mata todos os inimigos na tela
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<EnemyBehaviour>().hp = 0;
+            }
+        }
     }
     public int spawnEnemies()
     {
